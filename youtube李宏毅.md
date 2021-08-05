@@ -58,7 +58,7 @@ $$
 $$
 $w$控制斜率，$b$左右移动，$c$控制高度。
 
-<img src="https://raw.githubusercontent.com/mm0806son/Images/main/20210727224120.png?token=ART4NBIPQPNRE7EGJAG7WJDBBOYU6" style="zoom: 25%;" />
+<img src="https://raw.githubusercontent.com/mm0806son/Images/main/20210727224120.png" style="zoom: 25%;" />
 
 给每一个Feature分配在不同sigmoid里的权重。Feature指的是前1,2,3...天的播放量。可以写成矩阵形式：
 $$
@@ -87,7 +87,7 @@ x_{3}
 $$
 整体流程是这样的：
 
-<img src="https://raw.githubusercontent.com/mm0806son/Images/main/20210727225245.png?token=ART4NBKHUDEJZZUBOBG55KTBBOYRS" style="zoom:25%;" />
+<img src="https://raw.githubusercontent.com/mm0806son/Images/main/20210727225245.png" style="zoom:25%;" />
 
 再把这些东西拉长拼成一个大的向量$\theta$，这样我们就有了一个新的函数$f(\theta)$​，继续做**梯度下降**。
 
