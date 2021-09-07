@@ -113,7 +113,7 @@ ReLU和Sigmoid叫做**Activation function**
 
 > 还可以继续改我们的模型...
 
-把a作为新的参数生产出a'，叫做一个laver。这就是Neuron和Neural Network。
+把a作为新的参数生产出a'，叫做一个laver。这就是**Neuron**和**Neural Network**。
 Deep = Many hidden layers
 
 **Overfitting** ：训练过的资料效果好了，没看过的反而变差了。
