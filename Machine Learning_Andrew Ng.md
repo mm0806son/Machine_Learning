@@ -43,6 +43,8 @@ Our goal is, given a training set, to learn a function $h : X → Y$ so that $h(
 $$
 J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}
 $$
+### Parameter Learning
+
 **Gradient descent**: 
 
 > $:=$表示赋值
@@ -59,5 +61,7 @@ $\alpha$ is the **learning rate**. 太小了收敛慢，太大了可能会震荡
 
 *Normal equation method? 不用迭代*
 
-### Parameter Learning
+## Week 2
+
+
 
