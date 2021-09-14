@@ -78,6 +78,8 @@ $$
   $$
   x_{i}:=\frac{x_{i}-\mu_{i}}{s_{i}}
   $$
+  Where $μ_i$ is the **average** of all the values for feature $(i)$ and $s_i$ is the range of values $(max - min)$, or $s_i$ is the standard deviation.
+
   没有控制参数范围就会变成这样：
 
   <img src="https://raw.githubusercontent.com/mm0806son/Images/main/202109141508887.png" style="zoom:25%;" />
