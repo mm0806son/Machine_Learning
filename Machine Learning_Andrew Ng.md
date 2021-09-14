@@ -69,3 +69,32 @@ $x_i$ 表示第$i$种数据类型，$x^{(j)}$ 表示第$j$组数据。为了记�
 $$
 \theta_{j}:=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } \mathrm{j}:=0 \ldots \mathrm{n}
 $$
+
+### Gradient descent in PRACTICE (Tips)
+
+- Feature Scaling & Mean Normalization
+
+  通过控制参数范围在0附近来提高收敛速度。
+  $$
+  x_{i}:=\frac{x_{i}-\mu_{i}}{s_{i}}
+  $$
+  没有控制参数范围就会变成这样：
+
+  <img src="https://raw.githubusercontent.com/mm0806son/Images/main/202109141508887.png" style="zoom:25%;" />
+
+- Choose learning rate $\alpha$
+
+  数学证明只要$\alpha$足够小，总会收敛。只不过太小了收敛很慢。
+
+  
+
+  **Debugging gradient descent.** Make a plot with *number of iterations* on the x-axis. Now plot the cost function, $J(\theta)$ over the number of iterations of gradient descent. 如果$J(\theta)$随着迭代变大或者震荡（或者收敛很慢），说明$\alpha$太大了。
+
+  **Automatic convergence test.** Declare convergence if $J(\theta)$ decreases by less than E in one iteration, where $E$ is some small value such as $10^{−3}$. However in practice it's difficult to choose this threshold value.
+
+- Polynomial Regression
+
+  使用其他函数形式。
+
+  *后文会讲到一种方法可以自动找最合适的函数？*
+
