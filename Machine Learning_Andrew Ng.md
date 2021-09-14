@@ -63,5 +63,9 @@ $\alpha$ is the **learning rate**. 太小了收敛慢，太大了可能会震荡
 
 ## Week 2
 
+### Multiple features (multivariate linear regression)
 
-
+$x_i$ 表示第$i$种数据类型，$x^{(j)}$ 表示第$j$组数据。为了记号的方便，定义$x_0^{(i)}=1$。
+$$
+\theta_{j}:=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } \mathrm{j}:=0 \ldots \mathrm{n}
+$$
