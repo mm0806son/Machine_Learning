@@ -98,3 +98,23 @@ $$
 
   *后文会讲到一种方法可以自动找最合适的函数？*
 
+### Computing Parameters Analytically
+
+即直接算出来最小值时的$\theta$。
+
+不用做Feature Scaling，不用选$\alpha$，不用迭代。但是$n$大($\ge10000$)的时候算得很慢。
+
+> With the normal equation, computing the inversion has complexity $\mathcal{O}(n^3)$
+
+$$
+\theta=\left(X^{T} X\right)^{-1} X^{T} y
+$$
+
+> 为什么用这个式子？-> 去查矩阵的微分公式
+
+造成$\left(X^{T} X\right)$不可逆的原因：
+
+- 线性相关的参数 (size in feet$^2$ & in m$^2$)
+- 参数量超过了数据量 -> 删掉一部分参数 / use regularization *晚点讲*
+
+但是octave使用pseudo int也能算出正确的解。
