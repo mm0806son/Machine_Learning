@@ -39,7 +39,7 @@ by Andrew Ng
 
 Our goal is, given a training set, to learn a function $h : X → Y$ so that $h(x)$ is a “good” predictor for the corresponding value of $y$. For historical reasons, this function h is called a **hypothesis**.
 
-**Cost Function**: (Loss) 预测值和真实值的差距。除以2是为了梯度下降时方便。
+**Cost Function**: (Loss) 预测值和真实值的差距。除以2是为了梯度下降时和微分的2约掉。
 $$
 J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}
 $$
@@ -53,13 +53,24 @@ $$
 $$
 \theta_{j}:=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J\left(\theta_{0}, \theta_{1}\right)
 $$
-$\alpha$ is the **learning rate**. 太小了收敛慢，太大了可能会震荡。
+$$
+\begin{aligned}
+\frac{\partial}{\partial \theta_{j}} J(\theta) &=\frac{\partial}{\partial \theta_{j}} \frac{1}{2}\left(h_{\theta}(x)-y\right)^{2} \\
+&=2 \cdot \frac{1}{2}\left(h_{\theta}(x)-y\right) \cdot \frac{\partial}{\partial \theta_{j}}\left(h_{\theta}(x)-y\right) \\
+&=\left(h_{\theta}(x)-y\right) \cdot \frac{\partial}{\partial \theta_{j}}\left(\sum_{i=0}^{n} \theta_{i} x_{i}-y\right) \\
+&=\left(h_{\theta}(x)-y\right) x_{j}
+\end{aligned}
+$$
+
+$$
+\theta_{j}:=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}
+$$
+
+$\alpha$ is the **learning rate** (步长). 太小了收敛慢，太大了可能会震荡。
 
 梯度下降法找到的是局部极小值。但是是凸函数，所以极小值就是全局最小值。因为$J$是标准差，是凸函数(convex quadratic function)。
 
 **Batch**: Each step of gradient descent uses all the training examples.
-
-*Normal equation method? 不用迭代*
 
 ## Week 2
 
@@ -100,7 +111,7 @@ $$
 
   *后文会讲到一种方法可以自动找最合适的函数？*
 
-### Computing Parameters Analytically
+### Computing Parameters Analytically (Normal equation method)
 
 即直接算出来最小值时的$\theta$。
 
@@ -120,3 +131,14 @@ $$
 - 参数量超过了数据量 -> 删掉一部分参数 / use regularization *晚点讲*
 
 但是octave使用pseudo int也能算出正确的解。
+
+
+
+A'+B
+B*A
+
+
+
+A*x
+
+.^2
