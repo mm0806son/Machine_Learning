@@ -66,6 +66,8 @@ $$
 \theta_{j}:=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}
 $$
 
+> 求和部分是矩阵乘法乘出来的标量
+
 $\alpha$ is the **learning rate** (步长). 太小了收敛慢，太大了可能会震荡。
 
 梯度下降法找到的是局部极小值。但是是凸函数，所以极小值就是全局最小值。因为$J$是标准差，是凸函数(convex quadratic function)。
