@@ -134,5 +134,25 @@ $$
 
 但是octave使用pseudo int也能算出正确的解。
 
+## Week 3
+
+> 用线性回归是很糟糕的，因为很靠右的一个值会把整个直线往右拉，也会给出大于1或小于0的预测值...
+
+### Logistic Regression Model
+
+Our new form uses the "**Sigmoid Function**", also called the "Logistic Function":
+$$
+\begin{aligned}
+&h_{\theta}(x)=g\left(\theta^{T} x\right) \\
+&z=\theta^{T} x \\
+&g(z)=\frac{1}{1+e^{-z}}
+\end{aligned}
+$$
+$h_θ(x)$ will give us the **probability** that our output is 1.
+
+The **decision boundary** is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.
+
+### Multiclass Classification
+
 
 
