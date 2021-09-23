@@ -138,7 +138,7 @@ $$
 
 > 用线性回归是很糟糕的，因为很靠右的一个值会把整个直线往右拉，也会给出大于1或小于0的预测值...
 
-### Logistic Regression Model
+### Classification and Representation
 
 Our new form uses the "**Sigmoid Function**", also called the "Logistic Function":
 $$
@@ -152,7 +152,134 @@ $h_θ(x)$ will give us the **probability** that our output is 1.
 
 The **decision boundary** is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.
 
+### Logistic Regression Model
+
+> 原来的损失函数不是凸函数，不能用极小值当最小值了...
+
+$$
+\begin{array}{ll}
+J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{Cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right) & \\
+\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(h_{\theta}(x)\right) & \text { if } \mathrm{y}=1 \\
+\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(1-h_{\theta}(x)\right) & \text { if } \mathrm{y}=0
+\end{array}
+$$
+
+有如下性质：
+
+$\operatorname{Cost}\left(h_{\theta}(x), y\right)=0$ if $h_{\theta}(x)=y$ 
+$\operatorname{Cost}\left(h_{\theta}(x), y\right) \rightarrow \infty$ if $y=0$ and $h_{\theta}(x) \rightarrow 1$
+$\operatorname{Cost}\left(h_{\theta}(x), y\right) \rightarrow \infty$ if $y=1$ and $h_{\theta}(x) \rightarrow 0$
+
+可以化简为：
+$$
+\operatorname{Cost}\left(h_{\theta}(x), y\right)=-y \log \left(h_{\theta}(x)\right)-(1-y) \log \left(1-h_{\theta}(x)\right)
+$$
+
+$$
+J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]
+$$
+
+A vectorized implementation is:
+$$
+\begin{aligned}
+&h=g(X \theta) \\
+&J(\theta)=\frac{1}{m} \cdot\left(-y^{T} \log (h)-(1-y)^{T} \log (1-h)\right)
+\end{aligned}
+$$
+梯度下降：
+$$
+\begin{aligned}
+&\theta_{j}:=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J(\theta)\\
+&\theta_{j}:=\theta_{j}-\frac{\alpha}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\\
+&\theta:=\theta-\frac{\alpha}{m} X^{T}(g(X \theta)-\vec{y})
+\end{aligned}
+$$
+和之前线性回归方法的公式是一样的，但是这里的$h(x)$变了。
+
+还有很多优化方法：Conjugate gradient, BFGS, L-BFGS.. 不需要手动选择$\alpha$，通常比梯度下降要快。但是更复杂。
+
+Octave里已经包含了一些函数：
+
+```matlab
+options = optimset('GradObj', 'on', 'MaxIter', 100);
+initialTheta = zeros(2,1);
+   [optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, options);
+
+```
+
+```matlab
+function [jVal, gradient] = costFunction(theta)
+  jVal = [...code to compute J(theta)...];
+  gradient = [...code to compute derivative of J(theta)...];
+end
+```
+
 ### Multiclass Classification
 
+思路是分别区分每一个类型：
+
+<img src="https://raw.githubusercontent.com/mm0806son/Images/main/202109231136281.png" style="zoom: 25%;" />
+
+### Solving the Problem of Overfitting
+
+Underfit -> High bias
+
+Overfit -> High **variance**
+
+There are two main options to address the issue of overfitting:
+
+1) Reduce the number of features:
+
+- Manually select which features to keep.
+- Use a model selection algorithm (studied later in the course).
+
+2) Regularization
+
+- Keep all the features, but reduce the magnitude of parameters $\theta_j$.
+- Regularization works well when we have a lot of slightly useful features.
+
+越简单的Hypothesis越不容易Overfit。
+
+#### Regularization in Linear Regression
+
+我们在罚函数中添加第二项对系数$\theta$进行控制（除了$\theta_0$以外）： 
+$$
+\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\lambda \sum_{j=1}^{n} \theta_{j}^{2}
+$$
+公式变为：
+$$
+\begin{aligned}
+&\theta_{0}:=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)} \\
+&\theta_{j}:=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}\\
+
+\end{aligned}
+$$
+即：
+$$
+\theta_{j}:=\theta_{j}\left(1-\alpha \frac{\lambda}{m}\right)-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}
+$$
+$1−α\frac{λ}{m}$总是比1小一些，因此每次迭代都会把$\theta_j$缩小一点。第二项则和regularization之前的形式一样。
+
+#### **Normal Equation**
+
+> 同样可以直接算出来
+
+$$
+\begin{aligned}
+&\theta=\left(X^{T} X+\lambda \cdot L\right)^{-1} X^{T} y\\
+&where\ L=\left[\begin{array}{lllll}0 & & & & \\ & 1 & & & \\ & & 1 & & \\ & & & \ddots & \\ & & & & 1\end{array}\right]
+\end{aligned}
+$$
+where $L=\left[\begin{array}{lllll}0 & & & & \\ & 1 & & & \\ & & 1 & & \\ & & & \ddots & \\ & & & & 1\end{array}\right]$
+$$
+X^{T} X+\lambda \cdot L \text { becomes invertible }
+$$
+$X^{T} X+\lambda \cdot L$ 永远可逆，解决了Week2提到的可能不可逆的问题。
 
 
+$$
+J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]+\frac{\lambda}{2 m} \sum_{j=1}^{n} \theta_{j}^{2}
+$$
+The second sum, $\sum_{j=1}^n \theta_j^2$ **means to explicitly exclude** the bias term, $\theta_0$. I.e. the $\theta$ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$). Thus, when computing the equation, we should continuously update the two following equations:
+
+![](https://raw.githubusercontent.com/mm0806son/Images/main/202109231603063.png)
