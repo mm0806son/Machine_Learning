@@ -17,3 +17,17 @@ ex1-octave/lib/makeValidFieldName.m
 ex1-octave/lib/submitWithConfiguration.m
 ex1-octave/plotData.m
 ex1-octave/submit.m
+ex2-octave/ex2.m
+ex2-octave/ex2_reg.m
+ex2-octave/lib/jsonlab/jsonopt.m
+ex2-octave/lib/jsonlab/loadjson.m
+ex2-octave/lib/jsonlab/loadubjson.m
+ex2-octave/lib/jsonlab/mergestruct.m
+ex2-octave/lib/jsonlab/savejson.m
+ex2-octave/lib/jsonlab/saveubjson.m
+ex2-octave/lib/jsonlab/varargin2struct.m
+ex2-octave/lib/makeValidFieldName.m
+ex2-octave/lib/submitWithConfiguration.m
+ex2-octave/mapFeature.m
+ex2-octave/plotDecisionBoundary.m
+ex2-octave/submit.m
