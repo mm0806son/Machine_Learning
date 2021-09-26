@@ -136,7 +136,7 @@ $$
 
 ## Week 3
 
-> 用线性回归是很糟糕的，因为很靠右的一个值会把整个直线往右拉，也会给出大于1或小于0的预测值...
+> 分类问题用线性回归是很糟糕的，因为很靠右的一个值会把整个直线往右拉，也会给出大于1或小于0的预测值...
 
 ### Classification and Representation
 
@@ -186,7 +186,7 @@ $$
 &J(\theta)=\frac{1}{m} \cdot\left(-y^{T} \log (h)-(1-y)^{T} \log (1-h)\right)
 \end{aligned}
 $$
-梯度下降：
+Gradient：
 $$
 \begin{aligned}
 &\theta_{j}:=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J(\theta)\\
