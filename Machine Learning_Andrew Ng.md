@@ -270,10 +270,6 @@ $$
 &where\ L=\left[\begin{array}{lllll}0 & & & & \\ & 1 & & & \\ & & 1 & & \\ & & & \ddots & \\ & & & & 1\end{array}\right]
 \end{aligned}
 $$
-where $L=\left[\begin{array}{lllll}0 & & & & \\ & 1 & & & \\ & & 1 & & \\ & & & \ddots & \\ & & & & 1\end{array}\right]$
-$$
-X^{T} X+\lambda \cdot L \text { becomes invertible }
-$$
 $X^{T} X+\lambda \cdot L$ 永远可逆，解决了Week2提到的可能不可逆的问题。
 
 
