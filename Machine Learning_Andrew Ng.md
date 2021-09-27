@@ -279,3 +279,34 @@ $$
 The second sum, $\sum_{j=1}^n \theta_j^2$ **means to explicitly exclude** the bias term, $\theta_0$. I.e. the $\theta$ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$). Thus, when computing the equation, we should continuously update the two following equations:
 
 ![](https://raw.githubusercontent.com/mm0806son/Images/main/202109231603063.png)
+
+## Week 4
+
+> 如果用上面的方法列举所有高次项组合来实现非线性，复杂度会随着参数上升而迅速上升...
+
+### Neural Networks
+
+If network has $s_j$ units in layer $j$ and $s_{j+1}$ units in layer $j+1$, then $Θ^{(j)}$ will be of dimension $s_{j+1}×(s_j+1)$.
+$$
+\begin{array}{r}
+a_{1}^{(2)}=g\left(\Theta_{10}^{(1)} x_{0}+\Theta_{11}^{(1)} x_{1}+\Theta_{12}^{(1)} x_{2}+\Theta_{13}^{(1)} x_{3}\right) \\
+a_{2}^{(2)}=g\left(\Theta_{20}^{(1)} x_{0}+\Theta_{21}^{(1)} x_{1}+\Theta_{22}^{(1)} x_{2}+\Theta_{23}^{(1)} x_{3}\right) \\
+a_{3}^{(2)}=g\left(\Theta_{30}^{(1)} x_{0}+\Theta_{31}^{(1)} x_{1}+\Theta_{32}^{(1)} x_{2}+\Theta_{33}^{(1)} x_{3}\right) \\
+h_{\Theta}(x)=a_{1}^{(3)}=g\left(\Theta_{10}^{(2)} a_{0}^{(2)}+\Theta_{11}^{(2)} a_{1}^{(2)}+\Theta_{12}^{(2)} a_{2}^{(2)}+\Theta_{13}^{(2)} a_{3}^{(2)}\right)
+\end{array}
+$$
+注意要加偏移量$\theta_0$。上标括号里代表的是层数。
+
+<img src="https://raw.githubusercontent.com/mm0806son/Images/main/202109271702585.png" alt="image-20210927170257865" style="zoom: 25%;" />
+
+
+
+具体的操作是这样的：
+$$
+z^{(j)}=\Theta^{(j-1)} a^{(j-1)}
+$$
+
+$$
+a^{(j)}=g\left(z^{(j)}\right)
+$$
+
