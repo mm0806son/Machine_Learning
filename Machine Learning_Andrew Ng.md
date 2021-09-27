@@ -310,3 +310,13 @@ $$
 a^{(j)}=g\left(z^{(j)}\right)
 $$
 
+直到最后一步：
+$$
+h_{\Theta}(x)=a^{(j+1)}=g\left(z^{(j+1)}\right)
+$$
+和 logistic regression 做的是一样的。
+
+> 神经网络可以模拟逻辑电路，也就是说可以用机器算出逻辑电路。
+
+![img](https://raw.githubusercontent.com/mm0806son/Images/main/202109272110134.png)
+
