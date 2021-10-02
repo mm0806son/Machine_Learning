@@ -320,9 +320,17 @@ $$
 
 ![img](https://raw.githubusercontent.com/mm0806son/Images/main/202109272110134.png)
 
+## Week 5
 
+Neural Network的Cost function是Logistic regression的延伸。
 
-
-
+For Logistic regression: 
+$$
+J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]+\frac{\lambda}{2 m} \sum_{j=1}^{n} \theta_{j}^{2}
+$$
+For Neural Network:
+$$
+J(\Theta)=-\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}\left[y_{k}^{(i)} \log \left(\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)+\left(1-y_{k}^{(i)}\right) \log \left(1-\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)\right]+\frac{\lambda}{2 m} \sum_{l=1}^{L-1} \sum_{i=1}^{s l} \sum_{j=1}^{s l+1}\left(\Theta_{j, i}^{(l)}\right)^{2}
+$$
 
 
