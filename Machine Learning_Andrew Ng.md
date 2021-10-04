@@ -333,4 +333,13 @@ $$
 J(\Theta)=-\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}\left[y_{k}^{(i)} \log \left(\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)+\left(1-y_{k}^{(i)}\right) \log \left(1-\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)\right]+\frac{\lambda}{2 m} \sum_{l=1}^{L-1} \sum_{i=1}^{s l} \sum_{j=1}^{s l+1}\left(\Theta_{j, i}^{(l)}\right)^{2}
 $$
 
+第一部分的求和是对Output Layer的每一层单独算然后求和。$K$是层数。
 
+The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit). As before with logistic regression, we square every term.
+
+差一章的笔记
+
+
+
+FP是正向推导，利用上一步的结果推后面的数值，直到最后得到Output。
+BP是逆向推导，利用后一步的误差推前面的误差，直到Layer 2得到Cost Function（Layer 1是原始数据，不需要计算）。
