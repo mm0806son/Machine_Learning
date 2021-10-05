@@ -394,3 +394,60 @@ Theta2 = reshape(thetaVector(111:220),10,11)
 Theta3 = reshape(thetaVector(221:231),1,11)
 ```
 
+### Gradient Check
+
+Two-side derivation:
+$$
+\frac{\partial}{\partial \Theta} J(\Theta) \approx \frac{J(\Theta+\epsilon)-J(\Theta-\epsilon)}{2 \epsilon}
+$$
+With multiple theta matrices, we can approximate the derivative **with respect to $\Theta_{j}$** as follows:
+$$
+\frac{\partial}{\partial \Theta_{j}} J(\Theta) \approx \frac{J\left(\Theta_{1}, \ldots, \Theta_{j}+\epsilon, \ldots, \Theta_{n}\right)-J\left(\Theta_{1}, \ldots, \Theta_{j}-\epsilon, \ldots, \Theta_{n}\right)}{2 \epsilon}
+$$
+代码实现：
+
+```matlab
+epsilon = 1e-4;
+for i = 1:n,
+  thetaPlus = theta;
+  thetaPlus(i) += epsilon;
+  thetaMinus = theta;
+  thetaMinus(i) -= epsilon;
+  gradApprox(i) = (J(thetaPlus) - J(thetaMinus))/(2*epsilon)
+end;
+```
+
+检查算出来的导数和BP的基本一致后，要disable gradient check，因为算的很慢。
+
+### Random Initialization
+
+将所有$\theta$权重初始化为零对神经网络不起作用。当我们BP时，所有节点都会重复更新到相同的值。相反，我们可以用以下方法随机地初始化我们的$\Theta$矩阵的权重。
+
+![img](https://raw.githubusercontent.com/mm0806son/Images/main/202110052205184.png)
+
+Hence, we initialize each $\Theta^{(l)}_{ij}$ to a random value between $[-\epsilon,\epsilon]$
+
+代码实现：
+
+```matlab
+If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11.
+
+Theta1 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+Theta2 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+```
+
+### **Training a Neural Network**
+
+一般来说hidden layer要么只有一层，要么每层数目都相等。
+
+具体流程：
+
+1. Randomly initialize the weights
+2. Implement forward propagation to get $h_\Theta(x^{(i)})$ for any $x^{(i)}$
+3. Implement the cost function
+4. Implement backpropagation to compute partial derivatives
+5. Use gradient checking to confirm that your backpropagation works. Then disable gradient checking.
+6. Use gradient descent or a built-in optimization function to minimize the cost function with the weights in theta.
+
+> $J(\Theta)$ 不是凸函数，不一定能找到全局最小值了。
