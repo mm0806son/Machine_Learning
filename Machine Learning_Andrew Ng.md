@@ -322,7 +322,9 @@ $$
 
 ## Week 5
 
-Neural Network的Cost function是Logistic regression的延伸。
+### **Back propagation Algorithm**
+
+> Neural Network的Cost function是Logistic regression的延伸。
 
 For Logistic regression: 
 $$
@@ -337,9 +339,58 @@ $$
 
 The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit). As before with logistic regression, we square every term.
 
-差一章的笔记
+之前我们在计算神经网络预测结果的时候我们采用了一种正向传播方法，我们从第一层开始正向一层一层进行计算，直到最后一层的$ℎ\theta(x)$。
+
+我们的目标仍然是找到$\min _{\Theta} J(\Theta)$。现在，为了计算代价函数的偏导数$\frac{\partial}{\partial \Theta_{i, j}^{(l)}} J(\Theta)$，我们需要采用一种**反向传播算法**，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。
+
+**具体的操作方法：**
+
+Given training set $\left\{\left(x^{(1)}, y^{(1)}\right) \cdots\left(x^{(m)}, y^{(m)}\right)\right\}$
+- Set $\Delta_{i, j}^{(l)}:=0$ for all $(1, i, j)$, 初始化矩阵
+
+For training example $\mathrm{t}=1$ to $\mathrm{m}$ :
+
+1. $\operatorname{Set} a^{(1)}:=x^{(t)}$
+
+2. Perform forward propagation to compute $a^{(l)}$ for $l=2,3, \ldots, \mathrm{L}$ 
+   先正向算出结果
+
+   ![](https://raw.githubusercontent.com/mm0806son/Images/main/202110051630507.png)
+
+3. Using $y^{(t)}$, compute $\delta^{(L)}=a^{(L)}-y^{(t)}$ 算最后一层的误差
+   Where $L$ is our total number of layers and $a^{(L)}$ is the vector of outputs of the activation units for the last layer. So our "error values" for the last layer are simply the differences of our actual results in the last layer and the correct outputs in $\mathrm{y}$. 
+
+4. Compute $\delta^{(L-1)}, \delta^{(L-2)}, \ldots, \delta^{(2)}$ using $\delta^{(l)}=\left(\left(\Theta^{(l)}\right)^{T} \delta^{(l+1)}\right) . * a^{(l)} . *\left(1-a^{(l)}\right)$
+   The delta values of layer $l$ are calculated by multiplying the delta values in the next layer with the theta matrix of layer $l$. We then element-wise multiply that with a function called $\mathrm{g}^{\prime}$, which is the derivative of the activation function g evaluated with the input values given by $z^{(l)}$.
+   The g-prime derivative terms can also be written out as:
+   $$
+   g^{\prime}\left(z^{(l)}\right)=a^{(l)} \cdot *\left(1-a^{(l)}\right)
+   $$
+
+5. $\Delta_{i, j}^{(l)}:=\Delta_{i, j}^{(l)}+a_{j}^{(l)} \delta_{i}^{(l+1)}$ or with vectorization, $\Delta^{(l)}:=\Delta^{(l)}+\delta^{(l+1)}\left(a^{(l)}\right)^{T}$
+   Hence we update our new $\Delta$ matrix.
+
+   - $D_{i, j}^{(l)}:=\frac{1}{m}\left(\Delta_{i, j}^{(l)}+\lambda \Theta_{i, j}^{(l)}\right)$, if $j \neq 0 .$
+   - $D_{i, j}^{(l)}:=\frac{1}{m} \Delta_{i, j}^{(l)}$ If $\mathrm{j}=0$
 
 
 
 FP是正向推导，利用上一步的结果推后面的数值，直到最后得到Output。
 BP是逆向推导，利用后一步的误差推前面的误差，直到Layer 2得到Cost Function（Layer 1是原始数据，不需要计算）。
+
+### Unrolling parameters
+
+> 把矩阵展开还原成向量用于计算的方法
+
+`thetaVec` 是一个很长的列向量，按顺序把矩阵的所有元素放进去。
+`reshape` 是把它还原成矩阵。
+
+```matlab
+thetaVector = [ Theta1(:); Theta2(:); Theta3(:); ]
+deltaVector = [ D1(:); D2(:); D3(:) ]
+
+Theta1 = reshape(thetaVector(1:110),10,11)
+Theta2 = reshape(thetaVector(111:220),10,11)
+Theta3 = reshape(thetaVector(221:231),1,11)
+```
+
