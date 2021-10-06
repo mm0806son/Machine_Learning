@@ -324,6 +324,8 @@ $$
 
 ### **Back propagation Algorithm**
 
+#### Cost Function
+
 > Neural Network的Cost function是Logistic regression的延伸。
 
 For Logistic regression: 
@@ -335,7 +337,14 @@ $$
 J(\Theta)=-\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}\left[y_{k}^{(i)} \log \left(\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)+\left(1-y_{k}^{(i)}\right) \log \left(1-\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)\right]+\frac{\lambda}{2 m} \sum_{l=1}^{L-1} \sum_{i=1}^{s l} \sum_{j=1}^{s l+1}\left(\Theta_{j, i}^{(l)}\right)^{2}
 $$
 
-第一部分的求和是对Output Layer的每一层单独算然后求和。$K$是层数。
+$K$是层数。
+
+第一部分的求和是对Output Layer的每一层单独算然后求和。具体操作是把矩阵每一项乘起来求和。
+
+```matlab
+regularized = lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)) ); 
+J = 1 / m * sum( sum( -class_y.* log(h) -  (1-class_y).*log(1-h) ))+ regularized;
+```
 
 The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit). As before with logistic regression, we square every term.
 
@@ -343,7 +352,9 @@ The number of columns in our current theta matrix is equal to the number of node
 
 我们的目标仍然是找到$\min _{\Theta} J(\Theta)$。现在，为了计算代价函数的偏导数$\frac{\partial}{\partial \Theta_{i, j}^{(l)}} J(\Theta)$，我们需要采用一种**反向传播算法**，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。
 
-**具体的操作方法：**
+#### Neural net gradient function
+
+**Back Propagation 具体的操作方法：**
 
 Given training set $\left\{\left(x^{(1)}, y^{(1)}\right) \cdots\left(x^{(m)}, y^{(m)}\right)\right\}$
 - Set $\Delta_{i, j}^{(l)}:=0$ for all $(1, i, j)$, 初始化矩阵
