@@ -62,12 +62,31 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% map to matrix
+class_y = zeros(m,num_labels);  
+for i = 1:num_labels
+    class_y(:,i) = y==i;
+end
+% class_y 5000*10
 
+a1 = [ones(m,1), X];
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m,1), a2];
+z3 = a2 * Theta2';
+h = sigmoid(z3); % 5000*10
 
+regularized = lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)) ); 
 
+J = 1 / m * sum( sum( -class_y.* log(h) -  (1-class_y).*log(1-h) ))+ regularized;
 
+for i = 1:m
+    
+    
+    %delta_3 = h - y( :, i );
+    %delta_2 = ((Theta2 * delta_3) .* a2 .* (1-a2);
 
-
+end
 
 
 
