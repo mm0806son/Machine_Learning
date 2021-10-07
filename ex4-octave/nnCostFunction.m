@@ -70,31 +70,25 @@ end
 % class_y 5000*10
 
 a1 = [ones(m,1), X];
-z2 = a1 * Theta1';
+z2 = a1 * Theta1'; % 5000*25
 a2 = sigmoid(z2);
 a2 = [ones(m,1), a2];
 z3 = a2 * Theta2';
 h = sigmoid(z3); % 5000*10
 
-regularized = lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)) ); 
+regularization = lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)) ); 
 
-J = 1 / m * sum( sum( -class_y.* log(h) -  (1-class_y).*log(1-h) ))+ regularized;
+J = 1 / m * sum( sum( -class_y.* log(h) -  (1-class_y).*log(1-h) ))+ regularization;
 
-for i = 1:m
-    
-    
-    %delta_3 = h - y( :, i );
-    %delta_2 = ((Theta2 * delta_3) .* a2 .* (1-a2);
+delta3 = h - class_y; % 5000*10
+% delta3 * Theta2; % 5000*26
+delta2 = (delta3 * Theta2(:, 2:end)) .* sigmoidGradient(z2);
+Theta2_grad = delta3' * a2 /m;
+Theta1_grad = delta2' * a1 /m;
 
-end
-
-
-
-
-
-
-
-
+% regularization
+Theta2_grad = delta3' * a2 /m + lambda / m * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];;
+Theta1_grad = delta2' * a1 /m + lambda / m * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
 
 
 
