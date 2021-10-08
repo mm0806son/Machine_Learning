@@ -394,6 +394,10 @@ $𝑖$ 代表下一层中误差单元的下标，是受到权重矩阵中第$�
 FP是正向推导，利用上一步的结果推后面的数值，直到最后得到Output。
 BP是逆向推导，利用后一步的误差推前面的误差，直到Layer 2得到Cost Function（Layer 1是原始数据，不需要计算）。
 
+> 其实也可以从前往后使用Automatic Differentiation，但是输出层只有一个单元，所以使用BP。
+
+把$y$先展开到矩阵`class_y`形式，是为了让预测错误时的Loss一样。
+
 ### Unrolling parameters
 
 > 把矩阵展开还原成向量用于计算的方法
