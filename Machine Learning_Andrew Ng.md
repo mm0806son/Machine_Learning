@@ -471,3 +471,40 @@ Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
 6. Use gradient descent or a built-in optimization function to minimize the cost function with the weights in theta.
 
 > $J(\Theta)$ 不是凸函数，不一定能找到全局最小值了。
+
+## Week 6
+
+### Debugging
+
+#### Evaluating a Hypothesis (Over & Underfitting)
+
+随机分一部分数据(30%)作为Test set
+
+For linear regression:
+$$
+J_{\text {test }}(\Theta)=\frac{1}{2 m_{\text {test }}} \sum_{i=1}^{m_{\text {test }}}\left(h_{\Theta}\left(x_{\text {test }}^{(i)}\right)-y_{\text {test }}^{(i)}\right)^{2}
+$$
+For classification ~ Misclassification error ( 0/1 misclassification error):
+$$
+\operatorname{err}\left(h_{\Theta}(x), y\right)=\begin{array}{cc}
+1 & \text { if } h_{\Theta}(x) \geq 0.5 \text { and } y=0 \text { or } h_{\Theta}(x)<0.5 \text { and } y=1 \\
+0 & \text { otherwise }
+\end{array}
+$$
+
+$$
+\text { Test Error }=\frac{1}{m_{\text {test }}} \sum_{i=1}^{m_{t e s t}} \operatorname{err}\left(h_{\Theta}\left(x_{\text {test }}^{(i)}\right), y_{\text {test }}^{(i)}\right)
+$$
+
+#### Model Selection
+
+20% Cross Validation set + 20% Test Set
+
+We can now calculate three separate error values for the three different sets using the following method:
+
+1. Optimize the parameters in Θ using the training set for each polynomial degree.
+2. Find the polynomial degree d with the least error using the cross validation set.
+3. Estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
+
+用一部分训练，一部分用来找最好的算法，再用一部分去估计预测未知数据的准确性。三部分互不重复，避免使用已经见过的数据影响结果。
+
