@@ -541,5 +541,12 @@ If a learning algorithm is suffering from **high variance**, getting more traini
 
 ![](https://raw.githubusercontent.com/mm0806son/Images/main/202110122247590.png)
 
+#### System Design Example
 
+我们可以选择一个由100 个最常出现在垃圾邮件中的词所构成的列表，根据这些词是否有在邮件中出现，来获得我们的特征向量（出现为1，不出现为0）。
 
+为了构建这个分类器算法，我们可以做很多事，例如：
+1. 收集更多的数据，让我们有更多的垃圾邮件和非垃圾邮件的样本；
+2. 基于邮件的路由信息开发一系列复杂的特征；
+3. 基于邮件的正文信息开发一系列复杂的特征，包括考虑截词的处理；
+4. 为探测刻意的拼写错误（把watch 写成w4tch）开发复杂的算法。
