@@ -564,3 +564,26 @@ If a learning algorithm is suffering from **high variance**, getting more traini
 
 > 先实现最基础的算法，再添加东西看看是不是变好了...
 
+##### Precision/Recall
+
+> Skewed Classes：只有0.5%的病人，直接说都没病都比1%正确率的算法好…
+
+<img src="https://raw.githubusercontent.com/mm0806son/Images/main/202110142200784.png" style="zoom:33%;" />
+$$
+\begin{aligned}
+&\text {查准率 Precision }=\frac{\text { True positives }}{\# \text { predicted as positive }}=\frac{\text { True positives }}{\text { True positives }+\text { False positives }} \\
+&\text {查全率 Recall }=\frac{\text { True positives }}{\# \text { actual positives }}=\frac{\text { True positives }}{\text { True positives }+\text { False negatives }}
+\end{aligned}
+$$
+把更罕见的数据集定为$y=1$。
+
+提高判断阈值可以提高查准率Precision，降低查全率Recall。反之亦然。
+
+判断算法好坏的依据：
+$$
+F_{1} \text { Score: } 2 \frac{P R}{P+R}
+$$
+
+
+
+
