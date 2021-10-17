@@ -1,5 +1,7 @@
 # Machine_Learning
 
+Machine Learning by Andrew Ng on [Coursera](https://www.coursera.org/learn/machine-learning/home/welcome)
+
 ## Ex1 Linear Regression
 - $J(\theta)$
 - Gradient descent
@@ -29,9 +31,7 @@
 - `randInitializeWeights.m` - Randomly initialize weights
 - `nnCostFunction.m` - Neural network cost function
 
-## Ex5 Regularized Linear Regression and Bias v.s.
-Variance
-
+## Ex5 Regularized Linear Regression and Bias v.s. Variance
 - `linearRegCostFunction.m` - Regularized linear regression cost function
 - `learningCurve.m` - Generates a learning curve
 - `polyFeatures.m` - Maps data into polynomial feature space
