@@ -506,7 +506,7 @@ We can now calculate three separate error values for the three different sets us
 2. Find the polynomial degree d with the least error using the cross validation set.
 3. Estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
 
-用一部分训练，一部分用来找最好的算法，再用一部分去估计预测未知数据的准确性。三部分互不重复，避免使用已经见过的数据影响结果。训练集用于训练不同的模型，验证集用于模型选择。而测试集由于在训练模型和模型选择这两步都没有用到，对于模型来说是未知数据，因此可以用于评估模型的泛化能力。
+用一部分(Train)训练，一部分(CV)用来找最好的算法，再用一部分(Test)去估计预测未知数据的准确性。三部分互不重复，避免使用已经见过的数据影响结果。训练集用于训练不同的模型，验证集用于模型选择。而测试集由于在训练模型和模型选择这两步都没有用到，对于模型来说是未知数据，因此可以用于评估模型的泛化能力。
 
 #### Bias & Variance
 
@@ -517,11 +517,15 @@ Variance = Overfitting ->  $J_{train} \gg  J_{cv}$
 
 当 $\lambda$ 较小时，训练集误差较小（过拟合）而交叉验证集误差较大；随着 $\lambda$ 的增加，训练集误差不断增加（欠拟合），而交叉验证集误差则是先减小后增加。
 
+> 注意只有Loss Function 带$\lambda$
+
 <img src="https://raw.githubusercontent.com/mm0806son/Images/main/202110122227323.png" alt="image-20211012222702202" style="zoom:75%;" />
 
 #### Learning Curves
 
-##### Experiencing high bias
+> 注意欠拟合和过拟合是由模型复杂度决定的，不是由样本复杂度决定的...
+
+##### Experiencing high bias (Underfitting)
 
 - **Low training set size**: causes $J_{train}(\Theta)$ to be low and $J_{CV}(\Theta)$ to be high.
 
@@ -531,7 +535,7 @@ If a learning algorithm is suffering from **high bias**, getting more training d
 
 ![](https://raw.githubusercontent.com/mm0806son/Images/main/202110122241170.png)
 
-##### Experiencing high variance
+##### Experiencing high variance  (Overfitting)
 
 - **Low training set size**: $J_{train}(\Theta)$ to be low and $J_{CV}(\Theta)$ to be high. (**Same**)
 
@@ -586,4 +590,4 @@ $$
 
 
 
-
+ 
