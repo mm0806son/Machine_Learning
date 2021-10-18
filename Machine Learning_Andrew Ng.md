@@ -588,6 +588,8 @@ $$
 F_{1} \text { Score: } 2 \frac{P R}{P+R}
 $$
 
+## Week 7
 
+### Support vector machine (SVM)
 
  
